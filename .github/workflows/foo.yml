@@ -19,7 +19,6 @@ jobs:
         run: |
           curl -L https://github.com/philrz/build-sha-test/releases/download/${{ steps.latest_release.outputs.release }}/build_sha.txt > build_sha.txt
       - name: Compare last build_sha to current sha
-        if: ${{ steps.latest_sha.outputs.sha == github.sha }}
         run: |
           [[ $(cat build_sha.txt) != ${{ github.sha }} ]]
 
