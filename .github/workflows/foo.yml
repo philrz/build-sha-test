@@ -18,19 +18,10 @@ jobs:
         id: latest_sha
         run: |
           curl -L https://github.com/philrz/build-sha-test/releases/download/${{ steps.latest_release.outputs.release }}/build_sha.txt > build_sha.txt
-          echo "sha=$(cat build_sha.txt)" >> $GITHUB_OUTPUT
-      - name: Show what is up
-        run: |
-          echo "latest sha is: ${{ steps.latest_sha.outputs.sha }}"
-          echo "github.sha is ${{ github.sha }}"
       - name: Compare last build_sha to current sha
         if: ${{ steps.latest_sha.outputs.sha == github.sha }}
         run: |
-          echo "SHA has not changed so no build will be generated"
-          gh run cancel ${{ github.run_id }}
-          gh run watch ${{ github.run_id }}
-        env:
-          GH_TOKEN: ${{ github.token }}
+          [[ $(cat build_sha.txt) != ${{ github.sha }} ]]
 
     outputs:
       version: ${{ steps.latest_release.outputs.release }}
