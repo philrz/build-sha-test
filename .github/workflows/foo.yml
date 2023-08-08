@@ -22,6 +22,7 @@ jobs:
 
     outputs:
       version: ${{ steps.latest_release.outputs.release }}
+      latest_sha: ${{ steps.latest_sha.outputs.sha }}
 
   release:
     name: Make a release if SHA has changed
