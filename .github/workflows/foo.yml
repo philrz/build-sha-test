@@ -1,0 +1,24 @@
+name: Foo
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check_latest:
+    name: Check If Release Is Needed
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get last released version
+        id: latest_release
+        uses: pozetroninc/github-action-get-latest-release@v0.7.0
+        with:
+          owner: philrz
+          repo: build-sha-test
+      - name: Download last build_sha
+        run: curl -L https://github.com/philrz/build-sha-test/releases/download/${{ steps.latest_release.outputs.release }}/build_sha.txt > build_sha.txt
+      - name: Compare last build_sha to current sha
+        run: |
+          [[ $(cat build_sha.txt) != ${{ github.sha }} ]]
+
+    outputs:
+      version: ${{ steps.latest_release.outputs.release }}
