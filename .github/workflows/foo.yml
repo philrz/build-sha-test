@@ -19,9 +19,20 @@ jobs:
         run: |
           curl -L https://github.com/philrz/build-sha-test/releases/download/${{ steps.latest_release.outputs.release }}/build_sha.txt > build_sha.txt
       - name: Compare last build_sha to current sha
+        continue-on-error: true
         run: |
           set -xv
           [[ $(cat build_sha.txt) != ${{ github.sha }} ]]
 
     outputs:
       version: ${{ steps.latest_release.outputs.release }}
+
+  release:
+    name: Make a release if SHA has changed
+    runs-on: ubuntu-20.04
+    needs: check_latest
+    if: needs.check_latest.outputs.status == 'success'
+    steps:
+      - name: Print a message indicating success
+        run: |
+          echo "Looks like SHA has changed so we would build a release"
