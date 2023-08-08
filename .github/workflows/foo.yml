@@ -15,12 +15,13 @@ jobs:
           owner: philrz
           repo: build-sha-test
       - name: Download last build_sha
+        id: latest_sha
         run: |
           curl -L https://github.com/philrz/build-sha-test/releases/download/${{ steps.latest_release.outputs.release }}/build_sha.txt > build_sha.txt
-          echo "latest-sha=$(cat build_sha.txt)" >> $GITHUB_OUTPUT
+          echo "sha=$(cat build_sha.txt)" >> $GITHUB_OUTPUT
       - name: Show what is up
         run: |
-          echo "latest-sha is: ${{ steps.vars.outputs.latest-sha }}"
+          echo "latest sha is: ${{ steps.latest_sha.outputs.sha }}"
           echo "github.sha is ${{ github.sha }}"
       - name: Compare last build_sha to current sha
         if: ${{ steps.vars.outputs.latest-sha == github.sha }}
