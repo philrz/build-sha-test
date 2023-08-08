@@ -10,3 +10,7 @@ jobs:
     steps:
       - name: Step is going to fail
         run: exit 1
+      - name: Step to run on failure
+        if: ${{ failure() }}
+        run: |
+          echo "The previous step totally failed!"
