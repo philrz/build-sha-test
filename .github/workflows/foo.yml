@@ -21,6 +21,7 @@ jobs:
       - name: Compare last build_sha to current sha
         if: ${{ steps.vars.outputs.latest-sha == github.sha }}
         run: |
+          echo "SHA has not changed so no build will be generated"
           gh run cancel ${{ github.run_id }}
           gh run watch ${{ github.run_id }}
 
