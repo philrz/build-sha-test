@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Step is going to fail
+        continue-on-error: true
         run: exit 1
       - name: Step to run on failure
         if: ${{ failure() }}
