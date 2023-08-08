@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Print what is happening
         run: |
-          echo "The latest sha: ${{ needs.check_latest.outputs.sha }}"
+          echo "The latest sha: ${{ needs.check_latest.outputs.latest_sha }}"
           echo "The github sha: ${{ github.sha }}"
 #    if: ${{ needs.check_latest.outputs.sha != github.sha }}
 #    steps:
