@@ -1,0 +1,12 @@
+name: Bar
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check_latest:
+    name: Check If Release Is Needed
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Step is going to fail
+        run: exit 1
