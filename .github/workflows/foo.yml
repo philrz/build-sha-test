@@ -27,9 +27,11 @@ jobs:
     name: Make a release if SHA has changed
     runs-on: ubuntu-20.04
     needs: check_latest
-    run: |
-      echo "The latest sha: ${{ needs.check_latest.outputs.sha }}"
-      echo "The github sha: ${{ github.sha }}"
+    steps:
+      - name: Print what is happening
+        run: |
+          echo "The latest sha: ${{ needs.check_latest.outputs.sha }}"
+          echo "The github sha: ${{ github.sha }}"
 #    if: ${{ needs.check_latest.outputs.sha != github.sha }}
 #    steps:
 #      - name: Print a message indicating success
