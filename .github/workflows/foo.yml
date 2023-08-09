@@ -26,15 +26,12 @@ jobs:
 
   release:
     name: Make a release if SHA has changed
+    if ${{ needs.check_latest.outputs.latest_sha != github.sha }}
     runs-on: ubuntu-20.04
     needs: check_latest
     steps:
-      - name: Print what is happening
+      - name: The SHAs are different so a build would be created
         run: |
           echo "The latest sha: ${{ needs.check_latest.outputs.latest_sha }}"
           echo "The github sha: ${{ github.sha }}"
-#    if: ${{ needs.check_latest.outputs.sha != github.sha }}
-#    steps:
-#      - name: Print a message indicating success
-#        run: |
-#          echo "Looks like SHA has changed so we would build a release"
+          echo "We would build a release!"
