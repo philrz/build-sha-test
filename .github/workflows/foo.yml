@@ -35,3 +35,11 @@ jobs:
           echo "The latest sha: ${{ needs.check_latest.outputs.latest_sha }}"
           echo "The github sha: ${{ github.sha }}"
           echo "We would build a release!"
+
+  record_build_sha:
+    needs: release
+    name: Upload the Build Sha
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Say something
+        run: echo "I would upload the build sha since we made a release"
