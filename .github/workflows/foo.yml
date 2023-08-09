@@ -26,7 +26,7 @@ jobs:
 
   release:
     name: Make a release if SHA has changed
-    if ${{ needs.check_latest.outputs.latest_sha != github.sha }}
+    if: ${{ needs.check_latest.outputs.latest_sha != github.sha }}
     runs-on: ubuntu-20.04
     needs: check_latest
     steps:
